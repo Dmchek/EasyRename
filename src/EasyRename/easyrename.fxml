@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorId" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EasyRename.EasyRenameController">
+   <children>
+       <MenuBar>
+          <menus>
+              <Menu mnemonicParsing="false" text="File">
+                 <items>
+                     <MenuItem fx:id="openFolder" mnemonicParsing="false" onAction="#newFolder" text="Open Folder" />
+                     <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Close" />
+                 </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Edit">
+                 <items>
+                     <MenuItem fx:id="folderManager" mnemonicParsing="false" onAction="#openManagerFolder" text="Менеджер Папок" />
+                 </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Help">
+                 <items>
+                     <MenuItem mnemonicParsing="false" text="About" />
+                 </items>
+              </Menu>
+          </menus>
+       </MenuBar>
+       <AnchorPane layoutX="8.0" layoutY="65.0" prefHeight="450.0" prefWidth="250.0">
+          <children>
+              <ListView fx:id="list" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="250.0" />
+          </children>
+       </AnchorPane>
+       <AnchorPane layoutX="280.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0">
+          <children>
+              <ImageView fx:id="preview" fitHeight="450.0" fitWidth="350.0" onMousePressed="#scaleUpImage" onMouseReleased="#scaleDownImage" pickOnBounds="true" preserveRatio="true">
+        </ImageView>
+          </children>
+       </AnchorPane>
+       <Text boundsType="VISUAL" layoutX="85.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Список Файлов" textOrigin="CENTER" />
+       <TextField fx:id="reName" layoutX="850.0" layoutY="66.0" promptText="Имя Файла" />
+       <Button fx:id="btnOk" layoutX="882.0" layoutY="303.0" mnemonicParsing="false" onAction="#ok" prefHeight="25.0" prefWidth="85.0" text="OK" />
+       <Text fx:id="pathFolder" boundsType="VISUAL" layoutX="14.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0">
+           <font>
+               <Font size="14.0" />
+           </font>
+       </Text>
+       <Text fx:id="yesOrNo" boundsType="VISUAL" layoutX="950.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0">
+           <font>
+               <Font size="14.0" />
+           </font>
+       </Text>
+      <MenuButton fx:id="changeFolder" layoutX="850.0" layoutY="105.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="134.0" text="Отправить в" />
+      <Separator layoutX="265.0" layoutY="65.0" orientation="VERTICAL" prefHeight="455.0" />
+      <Separator layoutX="650.0" layoutY="65.0" orientation="VERTICAL" prefHeight="200.0" />
+      <Separator layoutX="7.0" layoutY="520.0" prefWidth="260.0" />
+   </children>
+</AnchorPane>

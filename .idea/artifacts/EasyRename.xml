@@ -1,0 +1,31 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="EasyRename">
+    <output-path>$PROJECT_DIR$/out/artifacts/EasyRename</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="EasyRename.Main" />
+        <option name="description" value="" />
+        <option name="height" value="768" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="all" />
+        <option name="title" value="EasyRename" />
+        <option name="vendor" value="DM5" />
+        <option name="version" value="0.1.5" />
+        <option name="width" value="1024" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="EasyRename.jar">
+        <element id="module-output" name="EasyRename" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/EasyRename/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+      <element id="file-copy" path="$USER_HOME$/Documents/java lib/jPDFViewerFX.jar" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/EasyRename_jar/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

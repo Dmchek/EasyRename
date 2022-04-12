@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
+<project name="easyrename" default="all">
+  
+  
+  <property file="EasyRename.beta.0.1.5.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.ane"/>
+    <include name="*.zip"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <!--suppress AntResolveInspection -->
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module EasyRename -->
+  
+  <dirname property="module.easyrename.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.easyrename" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.easyrename" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.easyrename" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.easyrename" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="easyrename.output.dir" value="${module.easyrename.basedir}/out/production/EasyRename"/>
+  <property name="easyrename.testoutput.dir" value="${module.easyrename.basedir}/out/test/EasyRename"/>
+  
+  <path id="easyrename.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="easyrename.module.production.classpath">
+    <path refid="${module.jdk.classpath.easyrename}"/>
+    <pathelement location="${basedir}/../../Documents/java lib/jPDFViewerFX.jar"/>
+  </path>
+  
+  <path id="easyrename.runtime.production.module.classpath">
+    <pathelement location="${easyrename.output.dir}"/>
+    <pathelement location="${basedir}/../../Documents/java lib/jPDFViewerFX.jar"/>
+  </path>
+  
+  <path id="easyrename.module.classpath">
+    <path refid="${module.jdk.classpath.easyrename}"/>
+    <pathelement location="${easyrename.output.dir}"/>
+    <pathelement location="${basedir}/../../Documents/java lib/jPDFViewerFX.jar"/>
+  </path>
+  
+  <path id="easyrename.runtime.module.classpath">
+    <pathelement location="${easyrename.testoutput.dir}"/>
+    <pathelement location="${easyrename.output.dir}"/>
+    <pathelement location="${basedir}/../../Documents/java lib/jPDFViewerFX.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.easyrename">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.easyrename">
+    <patternset refid="excluded.from.module.easyrename"/>
+  </patternset>
+  
+  <path id="easyrename.module.sourcepath">
+    <dirset dir="${module.easyrename.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.easyrename" depends="compile.module.easyrename.production,compile.module.easyrename.tests" description="Compile module EasyRename"/>
+  
+  <target name="compile.module.easyrename.production" depends="register.custom.compilers" description="Compile module EasyRename; production classes">
+    <mkdir dir="${easyrename.output.dir}"/>
+    <javac2 destdir="${easyrename.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.easyrename}/javac">
+      <compilerarg line="${compiler.args.easyrename}"/>
+      <bootclasspath refid="easyrename.module.bootclasspath"/>
+      <classpath refid="easyrename.module.production.classpath"/>
+      <src refid="easyrename.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.easyrename"/>
+    </javac2>
+    
+    <copy todir="${easyrename.output.dir}">
+      <fileset dir="${module.easyrename.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.easyrename.tests" depends="register.custom.compilers,compile.module.easyrename.production" description="compile module EasyRename; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.easyrename" description="cleanup module">
+    <delete dir="${easyrename.output.dir}"/>
+    <delete dir="${easyrename.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.easyrename, clean.artifact.easyrename" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.easyrename" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.easyrename" value="${basedir}/out/artifacts/EasyRename"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="artifact.temp.output.EasyRename" value="${artifacts.temp.dir}/EasyRename.jar"/>
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
+  </target>
+  
+  <target name="clean.artifact.easyrename" description="clean EasyRename artifact output">
+    <delete dir="${artifact.output.easyrename}"/>
+  </target>
+  
+  <target name="artifact.easyrename" depends="init.artifacts, compile.module.easyrename" description="Build &#39;EasyRename&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <mkdir dir="${artifact.output.easyrename}"/>
+    <copy todir="${artifact.temp.output.EasyRename}">
+      <fileset dir="${easyrename.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.temp.output.EasyRename}/META-INF"/>
+    <copy file="${basedir}/META-INF/MANIFEST.MF" tofile="${artifact.temp.output.EasyRename}/META-INF/MANIFEST.MF"/>
+    <copy file="${basedir}/out/artifacts/EasyRename/META-INF/MANIFEST.MF" tofile="${artifact.temp.output.EasyRename}/META-INF/MANIFEST.MF"/>
+    <copy file="${basedir}/../../Documents/java lib/jPDFViewerFX.jar" tofile="${artifact.temp.output.EasyRename}/jPDFViewerFX.jar"/>
+    <mkdir dir="${artifact.temp.output.EasyRename}/META-INF"/>
+    <copy file="${basedir}/out/artifacts/EasyRename_jar/META-INF/MANIFEST.MF" tofile="${artifact.temp.output.EasyRename}/META-INF/MANIFEST.MF"/>
+    <fx:fileset id="all_but_EasyRename" dir="${artifact.temp.output.EasyRename}" includes="**/*.jar">
+      <exclude name="EasyRename.jar"/>
+    </fx:fileset>
+    <fx:fileset id="all_EasyRename" dir="${artifact.temp.output.EasyRename}" includes="**/*.jar"/>
+    <fx:application id="EasyRename_id" name="EasyRename" mainClass="sample.Main" version="0.1.5"/>
+    <fx:jar destfile="${artifact.temp.output.EasyRename}/EasyRename.jar">
+      <fx:application refid="EasyRename_id"/>
+      <fileset dir="${artifact.temp.output.EasyRename}" excludes="**/*.jar"/>
+      <fx:resources>
+        <fx:fileset refid="all_but_EasyRename"/>
+      </fx:resources>
+      <manifest>
+        <attribute name="Implementation-Title" value="EasyRename"/>
+        <attribute name="Implementation-Version" value="0.1.5"/>
+        <attribute name="Implementation-Vendor" value=""/>
+      </manifest>
+    </fx:jar>
+    <fx:deploy width="1024" height="400768" updatemode="background" outdir="${artifact.temp.output.EasyRename}/deploy" outfile="EasyRename" nativeBundles="exe">
+      <fx:application refid="EasyRename_id"/>
+      <fx:info title="EasyRename"/>
+      <fx:resources>
+        <fx:fileset refid="all_EasyRename"/>
+      </fx:resources>
+    </fx:deploy>
+    <copy todir="${artifact.output.easyrename}">
+      <fileset dir="${artifact.temp.output.EasyRename}/deploy"/>
+    </copy>
+    <delete includeemptydirs="true">
+      <fileset dir="${artifact.temp.output.EasyRename}"/>
+    </delete>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.easyrename" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

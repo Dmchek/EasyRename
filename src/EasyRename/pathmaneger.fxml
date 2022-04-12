@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorId1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EasyRename.PathManagerController">
+   <children>
+      <BorderPane layoutX="31.0" layoutY="91.0" prefHeight="281.0" prefWidth="538.0">
+         <center>
+            <TableView fx:id="folderTable" prefHeight="291.0" prefWidth="544.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="nameCol" prefWidth="171.0" text="Имя" />
+                <TableColumn fx:id="pathCol" prefWidth="364.0" text="Папка" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+      <Button fx:id="openFolder" layoutX="31.0" layoutY="28.0" mnemonicParsing="false" onAction="#newFolder" text="Open" />
+      <Button fx:id="addFolder" layoutX="521.0" layoutY="53.0" mnemonicParsing="false" onAction="#add" text="Add" />
+      <Button fx:id="close" layoutX="517.0" layoutY="386.0" mnemonicParsing="false" onAction="#close" text="Close" />
+      <Button fx:id="saveBase" disable="true" layoutX="443.0" layoutY="386.0" mnemonicParsing="false" onAction="#save" text="Save" />
+      <TextField fx:id="pathName" layoutX="95.0" layoutY="55.0" prefHeight="25.0" prefWidth="400.0" promptText="Имя" />
+      <Text fx:id="pathFolder" layoutX="95.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Папка : " />
+      <Button fx:id="delete" layoutX="28.0" layoutY="386.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
+      <Text layoutX="100.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Статус :" />
+      <Text fx:id="status" layoutX="153.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>
