@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,17 +58,16 @@ public class EasyRenameController implements Initializable {
 
     void setFolder() { //изменяем дирректорию
         directoryBuffer = selectedDirectory;
-        if (selectedDirectory != null){
+        if (selectedDirectory != null) {
             selectedDirectory = null;
         }
         Stage primaryStage = (Stage) anchorId.getScene().getWindow();
         File validate = directoryChooser.showDialog(primaryStage);
 
-        if(validate == null){
+        if (validate == null) {
             selectedDirectory = directoryBuffer;
 
-        }
-        else {
+        } else {
             selectedDirectory = validate;
             String msg = "Папка : " + selectedDirectory.getAbsolutePath();
             pathFolder.setText(msg);
@@ -79,10 +79,8 @@ public class EasyRenameController implements Initializable {
         return selectedDirectory.getAbsolutePath();
     }
 
-
     @FXML
     private AnchorPane anchorId;
-
 
     @FXML
     private MenuItem openFolder;
@@ -114,26 +112,23 @@ public class EasyRenameController implements Initializable {
     @FXML
     private MenuItem folderManager;
 
-
     @FXML
     void ok(ActionEvent event) throws IOException {
         File oldFile = new File(getFolder() + "\\" + observableList.get(fileSelect.getSelectedIndex()).getName());
         Path oldPath = Paths.get(oldFile.getPath());
         for (int i = 0; i < changeFolder.getItems().size(); i++) {
             checkMenuItem = (javafx.scene.control.CheckMenuItem) changeFolder.getItems().get(i);
-            if(checkMenuItem.isSelected()){
+            if (checkMenuItem.isSelected()) {
                 File newFile = new File(tableFolders.get(checkMenuItem.getText()) + "\\" + reName.getText());
                 Path newPath = Paths.get(newFile.getPath());
                 Files.copy(oldPath, newPath, REPLACE_EXISTING);
                 if (oldFile.renameTo(newFile)) {
                     yesOrNo.setText("Well done !");
 
-                }
-                else {
+                } else {
                     yesOrNo.setText("Nope , try again");
                 }
-            }
-            else{
+            } else {
                 yesOrNo.setText("Nope , try again");
             }
         }
@@ -144,12 +139,11 @@ public class EasyRenameController implements Initializable {
         //list.setItems(listNameFileFolder);
         fileSelect.select(reName.getText());
         preview.setDisable(true);
-
     }
 
     @FXML
     void close(ActionEvent event) {
-            System.exit(0);
+        System.exit(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -162,9 +156,8 @@ public class EasyRenameController implements Initializable {
                 System.out.println("Отмена выбора");
                 directoryBuffer = null;
                 preview.setVisible(true);
-            }
-            else {
-                if (listNameFileFolder != null){
+            } else {
+                if (listNameFileFolder != null) {
                     observableList.clear();
                     listNameFileFolder.removeAll();
                     listNameFileFolder = null;
@@ -183,9 +176,7 @@ public class EasyRenameController implements Initializable {
                 });
             }
 
-            }
-
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             logger.log(Level.WARNING, "не открылась папка", new Throwable());
         }
@@ -206,13 +197,12 @@ public class EasyRenameController implements Initializable {
                 preview.setImage(image);
                 System.out.println(pathImage);
             }
-            } else if (pathImage.endsWith(".jpeg") || pathImage.endsWith(".jpg") || pathImage.endsWith(".png")) {
-                preview.setVisible(true);
-                Image image = new Image(pathImage);
-                preview.setImage(image);
-                System.out.println(pathImage);
-            }
-
+        } else if (pathImage.endsWith(".jpeg") || pathImage.endsWith(".jpg") || pathImage.endsWith(".png")) {
+            preview.setVisible(true);
+            Image image = new Image(pathImage);
+            preview.setImage(image);
+            System.out.println(pathImage);
+        }
     }
 
     @FXML
@@ -232,8 +222,8 @@ public class EasyRenameController implements Initializable {
     }
 
     @FXML
-    void openManagerFolder(ActionEvent event){
-        FXMLLoader loader =new FXMLLoader();
+    void openManagerFolder(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/EasyRename/pathmaneger.fxml"));
         try {
             loader.load();
@@ -266,16 +256,14 @@ public class EasyRenameController implements Initializable {
                 changeFolder.getItems().add(i, checkMenuItem);
             }
 
-        } catch(IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-
-
-       // listClear = list.getSelectionModel();
-       // listClear.selectedItemProperty().addListener((observable, oldValue, newValue) ->  {
-          //  listNameFileFolder.clear();
-          //  listNameFileFolder.addAll(myList.GetNameFilesFromFolder(getFolder()));
-           // });
+        // listClear = list.getSelectionModel();
+        // listClear.selectedItemProperty().addListener((observable, oldValue, newValue) ->  {
+        //  listNameFileFolder.clear();
+        //  listNameFileFolder.addAll(myList.GetNameFilesFromFolder(getFolder()));
+        // });
     }
 }
